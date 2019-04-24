@@ -11,16 +11,17 @@ import xlsxwriter
 
 #Load dataset
 data = []
-workbook = xlrd.open_workbook("DATA FIX(50).xlsx")#Dataset file name
+workbook = xlrd.open_workbook("jokowinovember fix.xlsx")#Dataset file name
 sheet = workbook.sheet_by_index(0)
 for i in range(0,sheet.nrows):
-    data.append(sheet.cell_value(i,0))
+    data.append(str(sheet.cell_value(i,0)))
 
-#remove http
+#remove http and pic.twitter
 result = []
 for d in data:
-    removeHttp = re.sub(r"http\S+", "", d)
-    result.append(removeHttp)
+    removeHttp = re.sub(r"http\S+", '', d)
+    removePic = re.sub(r"pic.twitter\S+", '', removeHttp)
+    result.append(removePic)
 
 #file to excel
 workbook = xlsxwriter.Workbook('Data(removed url).xlsx')
